@@ -106,8 +106,8 @@ export default function Home() {
         </section>
       </main>
 
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 flex justify-center" style={{ maskImage: "linear-gradient(to top, rgba(0,0,0,0.08), transparent 80%)", WebkitMaskImage: "linear-gradient(to top, rgba(0,0,0,0.08), transparent 80%)" }}>
-        <Image src="/assets/syria-map.svg" alt="" width={800} height={600} className="w-full max-w-3xl opacity-[0.06]" />
+      <div className="pointer-events-none absolute bottom-0 inset-x-0 flex justify-center translate-y-1/4" style={{ maskImage: "linear-gradient(to top, black 10%, transparent 70%)", WebkitMaskImage: "linear-gradient(to top, black 10%, transparent 70%)" }}>
+        <Image src="/assets/syria-map.svg" alt="" width={900} height={700} className="w-full max-w-4xl opacity-[0.07] dark:opacity-[0.12]" />
       </div>
     </div>
   )

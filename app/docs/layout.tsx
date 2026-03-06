@@ -120,100 +120,166 @@ function ThemeToggle({ dir }: { dir: Dir }) {
   )
 }
 
+function SidebarContent({ pathname, dir, setDir, t, onLinkClick }: {
+  pathname: string
+  dir: Dir
+  setDir: (d: Dir) => void
+  t: typeof i18n.ltr
+  onLinkClick?: () => void
+}) {
+  return (
+    <div className="p-4">
+      <Link href="/" className="flex items-center gap-2.5 mb-4">
+        <Image src="/emblem.svg" alt="sycn" width={40} height={40} />
+        <span className="text-xl font-bold">sycn</span>
+      </Link>
+
+      <div className="flex gap-2 mb-6">
+        <ThemeToggle dir={dir} />
+        <DirToggle dir={dir} setDir={setDir} />
+      </div>
+
+      <div className="mb-6">
+        <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+          {t.identity}
+        </h2>
+        <ul className="space-y-0.5">
+          {identityItems.map((item) => {
+            const href = `/docs/identity/${item.en}`
+            const active = pathname === href
+            return (
+              <li key={item.en}>
+                <Link
+                  href={href}
+                  onClick={onLinkClick}
+                  className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
+                    active
+                      ? "bg-accent text-accent-foreground font-medium"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  }`}
+                >
+                  {t[item.en as keyof typeof t]}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+          {t.components}
+        </h2>
+        <ul className="space-y-0.5">
+          {components.map((item) => {
+            const slug = item.en.toLowerCase().replace(/ /g, "-")
+            const href = `/docs/components/${slug}`
+            const active = pathname === href
+            return (
+              <li key={slug}>
+                <Link
+                  href={href}
+                  onClick={onLinkClick}
+                  className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
+                    active
+                      ? "bg-accent text-accent-foreground font-medium"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  }`}
+                >
+                  {dir === "rtl" ? item.ar : item.en}
+                </Link>
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const { dir, setDir } = useDir()
+  const [mobileOpen, setMobileOpen] = useState(false)
   const t = i18n[dir]
 
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => { document.body.style.overflow = "" }
+  }, [mobileOpen])
+
   return (
-      <div className="flex min-h-screen">
-        <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-fade-e">
-          <div className="p-4">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <Image src="/emblem.svg" alt="sycn" width={40} height={40} />
-              <span className="text-xl font-bold">sycn</span>
-            </Link>
+    <div className="flex min-h-screen">
+      {/* Desktop sidebar */}
+      <aside className="hidden md:block fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-fade-e">
+        <SidebarContent pathname={pathname} dir={dir} setDir={setDir} t={t} />
+      </aside>
 
-            <div className="flex gap-2 mb-6">
-              <ThemeToggle dir={dir} />
-              <DirToggle dir={dir} setDir={setDir} />
+      {/* Mobile header */}
+      <header className="md:hidden fixed top-0 inset-x-0 z-50 flex h-14 items-center justify-between px-4 border-fade-b bg-background/95 backdrop-blur">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="rounded-md border p-2 transition-colors hover:bg-accent/50"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18" /><path d="M3 6h18" /><path d="M3 18h18" /></svg>
+          </button>
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/emblem.svg" alt="sycn" width={28} height={28} />
+            <span className="text-lg font-bold">sycn</span>
+          </Link>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <ThemeToggle dir={dir} />
+          <DirToggle dir={dir} setDir={setDir} />
+        </div>
+      </header>
+
+      {/* Mobile sidebar overlay */}
+      {mobileOpen && (
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-50 bg-black/50"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="md:hidden fixed inset-inline-start-0 top-0 z-50 h-screen w-[280px] overflow-y-auto scrollbar-none bg-background">
+            <div className="flex justify-end p-3">
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="rounded-md border p-2 transition-colors hover:bg-accent/50"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+              </button>
             </div>
+            <SidebarContent pathname={pathname} dir={dir} setDir={setDir} t={t} onLinkClick={() => setMobileOpen(false)} />
+          </aside>
+        </>
+      )}
 
-            <div className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                {t.identity}
-              </h2>
-              <ul className="space-y-0.5">
-                {identityItems.map((item) => {
-                  const href = `/docs/identity/${item.en}`
-                  const active = pathname === href
-                  return (
-                    <li key={item.en}>
-                      <Link
-                        href={href}
-                        className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
-                          active
-                            ? "bg-accent text-accent-foreground font-medium"
-                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                        }`}
-                      >
-                        {t[item.en as keyof typeof t]}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-
-            <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                {t.components}
-              </h2>
-              <ul className="space-y-0.5">
-                {components.map((item) => {
-                  const slug = item.en.toLowerCase().replace(/ /g, "-")
-                  const href = `/docs/components/${slug}`
-                  const active = pathname === href
-                  return (
-                    <li key={slug}>
-                      <Link
-                        href={href}
-                        className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
-                          active
-                            ? "bg-accent text-accent-foreground font-medium"
-                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                        }`}
-                      >
-                        {dir === "rtl" ? item.ar : item.en}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          </div>
-        </aside>
-
-        <main className="flex-1 ms-[250px] flex flex-col min-h-screen">
-          <div className="max-w-3xl mx-auto px-8 py-12 flex-1">{children}</div>
-          <footer className="py-6 text-center text-sm text-muted-foreground" style={{ backgroundImage: "linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent)", backgroundSize: "100% 1px", backgroundRepeat: "no-repeat", backgroundPosition: "top" }}>
-            {dir === "rtl" ? (
-              <>
-                © {new Date().getFullYear()} نظام تصميم الهوية البصرية السورية - تم تطويرها بواسطة{" "}
-                <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
-                  مكدوس
-                </a>
-              </>
-            ) : (
-              <>
-                © {new Date().getFullYear()} sycn. Developed by{" "}
-                <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
-                  @macdoos
-                </a>
-              </>
-            )}
-          </footer>
-        </main>
-      </div>
+      <main className="flex-1 md:ms-[250px] flex flex-col min-h-screen">
+        <div className="max-w-3xl mx-auto px-4 sm:px-8 py-6 sm:py-12 flex-1 mt-14 md:mt-0 w-full">{children}</div>
+        <footer className="py-6 text-center text-sm text-muted-foreground px-4" style={{ backgroundImage: "linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent)", backgroundSize: "100% 1px", backgroundRepeat: "no-repeat", backgroundPosition: "top" }}>
+          {dir === "rtl" ? (
+            <>
+              © {new Date().getFullYear()} نظام تصميم الهوية البصرية السورية - تم تطويرها بواسطة{" "}
+              <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+                مكدوس
+              </a>
+            </>
+          ) : (
+            <>
+              © {new Date().getFullYear()} sycn. Developed by{" "}
+              <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+                @macdoos
+              </a>
+            </>
+          )}
+        </footer>
+      </main>
+    </div>
   )
 }

@@ -18,10 +18,10 @@ export default function ContextMenuPage() {
             {t("rightClickHere")}
           </ContextMenuTrigger>
           <ContextMenuContent className="w-64">
-            <ContextMenuItem>Back</ContextMenuItem>
-            <ContextMenuItem>Forward</ContextMenuItem>
-            <ContextMenuItem>Reload</ContextMenuItem>
-            <ContextMenuItem>Save As...</ContextMenuItem>
+            <ContextMenuItem>{t("back")}</ContextMenuItem>
+            <ContextMenuItem>{t("forward")}</ContextMenuItem>
+            <ContextMenuItem>{t("reload")}</ContextMenuItem>
+            <ContextMenuItem>{t("saveAs")}</ContextMenuItem>
           </ContextMenuContent>
         </ContextMenu>
       </ComponentPreview>

@@ -17,31 +17,31 @@ export default function MenubarPage() {
           <MenubarMenu>
             <MenubarTrigger>{t("file")}</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>New File</MenubarItem>
-              <MenubarItem>Open</MenubarItem>
+              <MenubarItem>{t("newFile")}</MenubarItem>
+              <MenubarItem>{t("open")}</MenubarItem>
               <MenubarSeparator />
-              <MenubarItem>Save</MenubarItem>
-              <MenubarItem>Exit</MenubarItem>
+              <MenubarItem>{t("save")}</MenubarItem>
+              <MenubarItem>{t("exit")}</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger>{t("edit")}</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>Undo</MenubarItem>
-              <MenubarItem>Redo</MenubarItem>
+              <MenubarItem>{t("undo")}</MenubarItem>
+              <MenubarItem>{t("redo")}</MenubarItem>
               <MenubarSeparator />
-              <MenubarItem>Cut</MenubarItem>
-              <MenubarItem>Copy</MenubarItem>
-              <MenubarItem>Paste</MenubarItem>
+              <MenubarItem>{t("cut")}</MenubarItem>
+              <MenubarItem>{t("copy")}</MenubarItem>
+              <MenubarItem>{t("paste")}</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
           <MenubarMenu>
             <MenubarTrigger>{t("view")}</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem>Zoom In</MenubarItem>
-              <MenubarItem>Zoom Out</MenubarItem>
+              <MenubarItem>{t("zoomIn")}</MenubarItem>
+              <MenubarItem>{t("zoomOut")}</MenubarItem>
               <MenubarSeparator />
-              <MenubarItem>Fullscreen</MenubarItem>
+              <MenubarItem>{t("fullscreen")}</MenubarItem>
             </MenubarContent>
           </MenubarMenu>
         </Menubar>

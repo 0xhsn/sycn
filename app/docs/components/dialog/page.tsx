@@ -10,10 +10,7 @@ export default function DialogPage() {
   const { t } = useT()
   return (
     <div className="space-y-6">
-      <DocHeader
-        title="Dialog"
-        component="dialog"
-      />
+      <DocHeader title="Dialog" component="dialog" />
       <InstallCommand command="npx shadcn@latest add dialog" />
       <h2 className="text-2xl font-semibold">{t("usage")}</h2>
       <ComponentPreview>
@@ -23,10 +20,10 @@ export default function DialogPage() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Dialog Title</DialogTitle>
-              <DialogDescription>This is a dialog description with important information.</DialogDescription>
+              <DialogTitle>{t("dialogTitle")}</DialogTitle>
+              <DialogDescription>{t("dialogDesc")}</DialogDescription>
             </DialogHeader>
-            <p className="text-sm text-muted-foreground">Dialog content goes here.</p>
+            <p className="text-sm text-muted-foreground">{t("dialogContent")}</p>
           </DialogContent>
         </Dialog>
       </ComponentPreview>

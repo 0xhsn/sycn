@@ -16,15 +16,15 @@ export default function RadioGroupPage() {
       <h2 className="text-xl font-semibold">{t("usage")}</h2>
       <ComponentPreview code={`import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"\nimport { Label } from "@/components/ui/label"\n\n<RadioGroup defaultValue="option-one">\n  <div className="flex items-center space-x-2">\n    <RadioGroupItem value="option-one" id="option-one" />\n    <Label htmlFor="option-one">Option One</Label>\n  </div>\n  <div className="flex items-center space-x-2">\n    <RadioGroupItem value="option-two" id="option-two" />\n    <Label htmlFor="option-two">Option Two</Label>\n  </div>\n  <div className="flex items-center space-x-2">\n    <RadioGroupItem value="option-three" id="option-three" />\n    <Label htmlFor="option-three">Option Three</Label>\n  </div>\n</RadioGroup>`}>
         <RadioGroup defaultValue="option-one">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <RadioGroupItem value="option-one" id="option-one" />
             <Label htmlFor="option-one">{t("option1")}</Label>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <RadioGroupItem value="option-two" id="option-two" />
             <Label htmlFor="option-two">{t("option2")}</Label>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <RadioGroupItem value="option-three" id="option-three" />
             <Label htmlFor="option-three">{t("option3")}</Label>
           </div>

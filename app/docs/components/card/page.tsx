@@ -14,17 +14,17 @@ export default function CardPage() {
       <DocHeader title="Card" component="card" />
       <InstallCommand name="card" />
       <h2 className="text-xl font-semibold">{t("usage")}</h2>
-      <ComponentPreview code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"\n\n<Card>\n  <CardHeader>\n    <CardTitle>Card Title</CardTitle>\n    <CardDescription>Card Description</CardDescription>\n  </CardHeader>\n  <CardContent>\n    <p>Card Content</p>\n  </CardContent>\n  <CardFooter>\n    <p>Card Footer</p>\n  </CardFooter>\n</Card>`}>
+      <ComponentPreview>
         <Card className="max-w-sm">
           <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
+            <CardTitle>{t("cardTitle")}</CardTitle>
+            <CardDescription>{t("cardDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>Card Content</p>
+            <p>{t("cardContent")}</p>
           </CardContent>
           <CardFooter>
-            <Button>Action</Button>
+            <Button>{t("action")}</Button>
           </CardFooter>
         </Card>
       </ComponentPreview>

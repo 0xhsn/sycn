@@ -22,8 +22,8 @@ export default function SheetPage() {
               </SheetTrigger>
               <SheetContent side={side}>
                 <SheetHeader>
-                  <SheetTitle>Sheet ({side})</SheetTitle>
-                  <SheetDescription>This sheet slides in from the {side}.</SheetDescription>
+                  <SheetTitle>{side}</SheetTitle>
+                  <SheetDescription>{t("makeChanges")}</SheetDescription>
                 </SheetHeader>
               </SheetContent>
             </Sheet>

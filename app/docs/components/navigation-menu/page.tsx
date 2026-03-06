@@ -16,11 +16,11 @@ export default function NavigationMenuPage() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Getting Started</NavigationMenuTrigger>
+              <NavigationMenuTrigger>{t("gettingStarted")}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
-                  <NavigationMenuLink href="/docs">Introduction</NavigationMenuLink>
-                  <NavigationMenuLink href="/docs/installation">Installation</NavigationMenuLink>
+                  <NavigationMenuLink href="/docs">{t("introduction")}</NavigationMenuLink>
+                  <NavigationMenuLink href="/docs/installation">{t("installation")}</NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -28,7 +28,7 @@ export default function NavigationMenuPage() {
               <NavigationMenuTrigger>{t("components")}</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="grid gap-3 p-4 w-[400px]">
-                  <NavigationMenuLink href="/docs/components">Overview</NavigationMenuLink>
+                  <NavigationMenuLink href="/docs/components">{t("overview")}</NavigationMenuLink>
                   <NavigationMenuLink href="/docs/components/button">Button</NavigationMenuLink>
                 </div>
               </NavigationMenuContent>

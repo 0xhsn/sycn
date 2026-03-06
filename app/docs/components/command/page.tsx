@@ -16,11 +16,11 @@ export default function CommandPage() {
         <Command className="rounded-lg border shadow-md w-[400px]">
           <CommandInput placeholder={t("search")} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <CommandItem>Calendar</CommandItem>
-              <CommandItem>Search</CommandItem>
-              <CommandItem>Settings</CommandItem>
+            <CommandEmpty>{t("loading")}</CommandEmpty>
+            <CommandGroup heading={t("components")}>
+              <CommandItem>{t("settings")}</CommandItem>
+              <CommandItem>{t("profile")}</CommandItem>
+              <CommandItem>{t("notifications")}</CommandItem>
             </CommandGroup>
           </CommandList>
         </Command>

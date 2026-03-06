@@ -19,13 +19,13 @@ export default function DropdownMenuPage() {
             <Button variant="outline">{t("open")}</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("myAccount")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>{t("profile")}</DropdownMenuItem>
+            <DropdownMenuItem>{t("settings")}</DropdownMenuItem>
+            <DropdownMenuItem>{t("billing")}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Log out</DropdownMenuItem>
+            <DropdownMenuItem>{t("logOut")}</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </ComponentPreview>

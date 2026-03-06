@@ -17,7 +17,7 @@ export default function CollapsiblePage() {
         <Collapsible className="w-[350px] space-y-2">
           <CollapsibleTrigger asChild>
             <Button variant="outline" className="w-full justify-between">
-              Toggle Content
+              {t("toggleContent")}
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="space-y-2">

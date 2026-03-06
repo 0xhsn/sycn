@@ -20,7 +20,7 @@ export default function TooltipPage() {
               <Button variant="outline">{t("hoverMe")}</Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Tooltip content</p>
+              <p>{t("tooltipText")}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

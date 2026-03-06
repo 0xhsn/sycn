@@ -20,8 +20,8 @@ export default function PopoverPage() {
           </PopoverTrigger>
           <PopoverContent className="w-80">
             <div className="space-y-2">
-              <h4 className="font-medium leading-none">Popover Title</h4>
-              <p className="text-sm text-muted-foreground">This is the popover content area.</p>
+              <h4 className="font-medium leading-none">{t("popoverTitle")}</h4>
+              <p className="text-sm text-muted-foreground">{t("popoverDesc")}</p>
             </div>
           </PopoverContent>
         </Popover>

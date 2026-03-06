@@ -14,17 +14,17 @@ export default function SwitchPage() {
       <DocHeader title="Switch" component="switch" />
       <InstallCommand name="switch" />
       <h2 className="text-xl font-semibold">{t("usage")}</h2>
-      <ComponentPreview code={`import { Switch } from "@/components/ui/switch"\nimport { Label } from "@/components/ui/label"\n\n<div className="flex items-center space-x-2">\n  <Switch id="airplane-mode" />\n  <Label htmlFor="airplane-mode">Airplane Mode</Label>\n</div>`}>
-        <div className="flex items-center space-x-2">
+      <ComponentPreview>
+        <div className="flex items-center gap-2">
           <Switch id="airplane-mode" />
-          <Label htmlFor="airplane-mode">Airplane Mode</Label>
+          <Label htmlFor="airplane-mode">{t("notifications")}</Label>
         </div>
       </ComponentPreview>
-      <h2 className="text-xl font-semibold">Checked</h2>
-      <ComponentPreview code={`<Switch defaultChecked />`}>
-        <div className="flex items-center space-x-2">
+      <h2 className="text-xl font-semibold">{t("checked")}</h2>
+      <ComponentPreview>
+        <div className="flex items-center gap-2">
           <Switch id="checked-switch" defaultChecked />
-          <Label htmlFor="checked-switch">Enabled</Label>
+          <Label htmlFor="checked-switch">{t("checked")}</Label>
         </div>
       </ComponentPreview>
     </div>

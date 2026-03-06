@@ -13,17 +13,17 @@ export default function AlertPage() {
       <DocHeader title="Alert" component="alert" />
       <InstallCommand name="alert" />
       <h2 className="text-xl font-semibold">{t("usage")}</h2>
-      <ComponentPreview code={`import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"\n\n<Alert>\n  <AlertTitle>Heads up!</AlertTitle>\n  <AlertDescription>You can add components to your app using the cli.</AlertDescription>\n</Alert>`}>
+      <ComponentPreview>
         <Alert>
-          <AlertTitle>Heads up!</AlertTitle>
-          <AlertDescription>You can add components to your app using the cli.</AlertDescription>
+          <AlertTitle>{t("headsUp")}</AlertTitle>
+          <AlertDescription>{t("alertDesc")}</AlertDescription>
         </Alert>
       </ComponentPreview>
-      <h2 className="text-xl font-semibold">Destructive</h2>
-      <ComponentPreview code={`<Alert variant="destructive">\n  <AlertTitle>Error</AlertTitle>\n  <AlertDescription>Something went wrong.</AlertDescription>\n</Alert>`}>
+      <h2 className="text-xl font-semibold">{t("destructive")}</h2>
+      <ComponentPreview>
         <Alert variant="destructive">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>Something went wrong.</AlertDescription>
+          <AlertTitle>{t("error")}</AlertTitle>
+          <AlertDescription>{t("somethingWrong")}</AlertDescription>
         </Alert>
       </ComponentPreview>
     </div>

@@ -20,8 +20,8 @@ export default function HoverCardPage() {
           </HoverCardTrigger>
           <HoverCardContent className="w-80">
             <div className="space-y-2">
-              <h4 className="font-medium leading-none">Hover Card</h4>
-              <p className="text-sm text-muted-foreground">This content appears on hover. Great for previews and additional info.</p>
+              <h4 className="font-medium leading-none">{t("hoverCardTitle")}</h4>
+              <p className="text-sm text-muted-foreground">{t("hoverCardDesc")}</p>
             </div>
           </HoverCardContent>
         </HoverCard>

@@ -13,7 +13,7 @@ export default function SidebarPage() {
       <h2 className="text-2xl font-semibold">{t("usage")}</h2>
       <ComponentPreview>
         <div className="flex h-[200px] w-[400px] items-center justify-center rounded-md border border-dashed">
-          <p className="text-sm text-muted-foreground">Sidebar is a complex layout component. See the shadcn/ui docs for full implementation details.</p>
+          <p className="text-sm text-muted-foreground">{t("sidebarNote")}</p>
         </div>
       </ComponentPreview>
     </div>

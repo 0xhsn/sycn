@@ -13,30 +13,30 @@ export default function TablePage() {
       <DocHeader title="Table" component="table" />
       <InstallCommand name="table" />
       <h2 className="text-xl font-semibold">{t("usage")}</h2>
-      <ComponentPreview code={`import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table"\n\n<Table>\n  <TableHeader>\n    <TableRow>\n      <TableHead>Name</TableHead>\n      <TableHead>Status</TableHead>\n      <TableHead>Role</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow>\n      <TableCell>Alice</TableCell>\n      <TableCell>Active</TableCell>\n      <TableCell>Admin</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>`}>
+      <ComponentPreview>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>{t("name")}</TableHead>
               <TableHead>{t("status")}</TableHead>
-              <TableHead>Role</TableHead>
+              <TableHead>{t("role")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell>Alice</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Admin</TableCell>
+              <TableCell>{t("name")} 1</TableCell>
+              <TableCell>{t("active")}</TableCell>
+              <TableCell>{t("admin")}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Bob</TableCell>
-              <TableCell>Inactive</TableCell>
-              <TableCell>User</TableCell>
+              <TableCell>{t("name")} 2</TableCell>
+              <TableCell>{t("inactive")}</TableCell>
+              <TableCell>{t("user")}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Charlie</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Editor</TableCell>
+              <TableCell>{t("name")} 3</TableCell>
+              <TableCell>{t("active")}</TableCell>
+              <TableCell>{t("editor")}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

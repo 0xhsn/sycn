@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/itfQomraArabic-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/itfQomraArabic-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/itfQomraArabic-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/itfQomraArabic-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Qomra";
+  src: url("/fonts/itfQomraArabic-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: "Qomra", "IBM Plex Sans Arabic", "Noto Sans Arabic", system-ui, -apple-system, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #edebe0;
+  --foreground: #161616;
+  --primary: #428177;
+  --primary-foreground: #ffffff;
+  --secondary: #054239;
+  --secondary-foreground: #edebe0;
+  --accent: #b9a779;
+  --accent-foreground: #161616;
+  --muted: #e2e0d5;
+  --muted-foreground: #3d3a3b;
+  --destructive: #6b1f2a;
+  --destructive-foreground: #ffffff;
+  --card: #f5f4ed;
+  --card-foreground: #161616;
+  --popover: #f5f4ed;
+  --popover-foreground: #161616;
+  --border: #b9a779;
+  --input: #b9a779;
+  --ring: #428177;
+  --chart-1: #428177;
+  --chart-2: #b9a779;
+  --chart-3: #6b1f2a;
+  --chart-4: #054239;
+  --chart-5: #988561;
+  --sidebar: #054239;
+  --sidebar-foreground: #edebe0;
+  --sidebar-primary: #428177;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #002623;
+  --sidebar-accent-foreground: #edebe0;
+  --sidebar-border: #428177;
+  --sidebar-ring: #b9a779;
+}
+
+.dark {
+  --background: #161616;
+  --foreground: #edebe0;
+  --primary: #428177;
+  --primary-foreground: #ffffff;
+  --secondary: #054239;
+  --secondary-foreground: #edebe0;
+  --accent: #988561;
+  --accent-foreground: #edebe0;
+  --muted: #3d3a3b;
+  --muted-foreground: #b9a779;
+  --destructive: #6b1f2a;
+  --destructive-foreground: #ffffff;
+  --card: #1e1e1e;
+  --card-foreground: #edebe0;
+  --popover: #1e1e1e;
+  --popover-foreground: #edebe0;
+  --border: #3d3a3b;
+  --input: #3d3a3b;
+  --ring: #428177;
+  --chart-1: #428177;
+  --chart-2: #b9a779;
+  --chart-3: #6b1f2a;
+  --chart-4: #054239;
+  --chart-5: #988561;
+  --sidebar: #002623;
+  --sidebar-foreground: #edebe0;
+  --sidebar-primary: #428177;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #054239;
+  --sidebar-accent-foreground: #edebe0;
+  --sidebar-border: #3d3a3b;
+  --sidebar-ring: #b9a779;
+}
+
+[data-theme="golden-wheat"] {
+  --primary: #b9a779;
+  --primary-foreground: #161616;
+  --secondary: #988561;
+  --secondary-foreground: #edebe0;
+  --accent: #428177;
+  --accent-foreground: #ffffff;
+  --border: #988561;
+  --input: #988561;
+  --ring: #b9a779;
+  --chart-1: #b9a779;
+  --chart-2: #428177;
+  --sidebar: #988561;
+  --sidebar-primary: #b9a779;
+  --sidebar-accent: #6b1f2a;
+  --sidebar-border: #b9a779;
+}
+
+[data-theme="deep-umber"] {
+  --primary: #6b1f2a;
+  --primary-foreground: #ffffff;
+  --secondary: #4a151e;
+  --secondary-foreground: #edebe0;
+  --accent: #b9a779;
+  --accent-foreground: #161616;
+  --border: #4a151e;
+  --input: #4a151e;
+  --ring: #6b1f2a;
+  --chart-1: #6b1f2a;
+  --chart-2: #b9a779;
+  --sidebar: #4a151e;
+  --sidebar-primary: #6b1f2a;
+  --sidebar-accent: #260f14;
+  --sidebar-border: #6b1f2a;
+}
+
+[data-theme="charcoal"] {
+  --background: #ffffff;
+  --primary: #3d3a3b;
+  --primary-foreground: #ffffff;
+  --secondary: #161616;
+  --secondary-foreground: #ffffff;
+  --accent: #428177;
+  --accent-foreground: #ffffff;
+  --muted: #e8e8e8;
+  --muted-foreground: #3d3a3b;
+  --border: #3d3a3b;
+  --input: #3d3a3b;
+  --ring: #3d3a3b;
+  --chart-1: #3d3a3b;
+  --chart-2: #428177;
+  --sidebar: #161616;
+  --sidebar-primary: #3d3a3b;
+  --sidebar-accent: #3d3a3b;
+  --sidebar-border: #3d3a3b;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

@@ -70,7 +70,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-fade-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-14 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2.5">
             <Image src="/emblem.svg" alt="sycn" width={28} height={28} />
@@ -99,7 +99,7 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="flex flex-col items-center justify-center gap-6 py-20 md:py-28 lg:py-36 px-6 text-center">
-          <Image src="/emblem.svg" alt="sycn" width={80} height={80} className="mb-2" />
+          <Image src="/emblem.svg" alt="sycn" width={120} height={120} className="mb-2" />
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl max-w-3xl">
             {t.title}
           </h1>

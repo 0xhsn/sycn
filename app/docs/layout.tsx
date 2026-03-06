@@ -43,14 +43,47 @@ const identityItems = [
   { en: "resources", ar: "resources" },
 ]
 
-const components = [
-  "Accordion", "Alert", "Alert Dialog", "Aspect Ratio", "Avatar", "Badge",
-  "Breadcrumb", "Button", "Calendar", "Card", "Checkbox", "Collapsible",
-  "Command", "Context Menu", "Dialog", "Dropdown Menu", "Hover Card",
-  "Input", "Label", "Menubar", "Navigation Menu", "Pagination", "Popover",
-  "Progress", "Radio Group", "Scroll Area", "Select", "Separator", "Sheet",
-  "Sidebar", "Skeleton", "Slider", "Switch", "Table", "Tabs", "Textarea",
-  "Toast", "Toggle", "Toggle Group", "Tooltip",
+const components: { en: string; ar: string }[] = [
+  { en: "Accordion", ar: "أكورديون" },
+  { en: "Alert", ar: "تنبيه" },
+  { en: "Alert Dialog", ar: "نافذة تنبيه" },
+  { en: "Aspect Ratio", ar: "نسبة العرض" },
+  { en: "Avatar", ar: "صورة رمزية" },
+  { en: "Badge", ar: "شارة" },
+  { en: "Breadcrumb", ar: "مسار التنقل" },
+  { en: "Button", ar: "زر" },
+  { en: "Calendar", ar: "تقويم" },
+  { en: "Card", ar: "بطاقة" },
+  { en: "Checkbox", ar: "مربع اختيار" },
+  { en: "Collapsible", ar: "قابل للطي" },
+  { en: "Command", ar: "لوحة أوامر" },
+  { en: "Context Menu", ar: "قائمة سياقية" },
+  { en: "Dialog", ar: "نافذة حوار" },
+  { en: "Dropdown Menu", ar: "قائمة منسدلة" },
+  { en: "Hover Card", ar: "بطاقة تمرير" },
+  { en: "Input", ar: "حقل إدخال" },
+  { en: "Label", ar: "تسمية" },
+  { en: "Menubar", ar: "شريط قوائم" },
+  { en: "Navigation Menu", ar: "قائمة تنقل" },
+  { en: "Pagination", ar: "ترقيم صفحات" },
+  { en: "Popover", ar: "نافذة منبثقة" },
+  { en: "Progress", ar: "شريط تقدم" },
+  { en: "Radio Group", ar: "مجموعة اختيار" },
+  { en: "Scroll Area", ar: "منطقة تمرير" },
+  { en: "Select", ar: "قائمة اختيار" },
+  { en: "Separator", ar: "فاصل" },
+  { en: "Sheet", ar: "لوحة جانبية" },
+  { en: "Sidebar", ar: "شريط جانبي" },
+  { en: "Skeleton", ar: "هيكل تحميل" },
+  { en: "Slider", ar: "شريط تمرير" },
+  { en: "Switch", ar: "مفتاح تبديل" },
+  { en: "Table", ar: "جدول" },
+  { en: "Tabs", ar: "تبويبات" },
+  { en: "Textarea", ar: "حقل نصي" },
+  { en: "Toast", ar: "إشعار" },
+  { en: "Toggle", ar: "زر تبديل" },
+  { en: "Toggle Group", ar: "مجموعة تبديل" },
+  { en: "Tooltip", ar: "تلميح" },
 ]
 
 function DirToggle({ dir, setDir }: { dir: Dir; setDir: (d: Dir) => void }) {
@@ -102,7 +135,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   return (
     <DirContext.Provider value={{ dir, setDir }}>
       <div className="flex min-h-screen">
-        <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-e">
+        <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-fade-e">
           <div className="p-4">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
               <Image src="/emblem.svg" alt="sycn" width={40} height={40} />
@@ -145,8 +178,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                 {t.components}
               </h2>
               <ul className="space-y-0.5">
-                {components.map((name) => {
-                  const slug = name.toLowerCase().replace(/ /g, "-")
+                {components.map((item) => {
+                  const slug = item.en.toLowerCase().replace(/ /g, "-")
                   const href = `/docs/components/${slug}`
                   const active = pathname === href
                   return (
@@ -159,7 +192,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                             : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                         }`}
                       >
-                        {name}
+                        {dir === "rtl" ? item.ar : item.en}
                       </Link>
                     </li>
                   )

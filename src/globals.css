@@ -3,6 +3,26 @@
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
+.border-fade-b {
+  border-bottom: none;
+  background-image: linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent);
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.border-fade-e {
+  border-inline-end: none;
+  background-image: linear-gradient(to bottom, transparent, var(--border) 15%, var(--border) 85%, transparent);
+  background-size: 1px 100%;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+[dir="rtl"] .border-fade-e {
+  background-position: left;
+}
+
 @font-face {
   font-family: "Qomra";
   src: url("/fonts/itfQomraArabic-Light.woff2") format("woff2");

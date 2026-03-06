@@ -3,18 +3,17 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useTheme } from "next-themes"
-import { useState, useEffect } from "react"
-
-type Dir = "rtl" | "ltr"
+import { useState, useEffect, useRef } from "react"
+import { useDir } from "@/lib/dir-context"
 
 const i18n = {
   rtl: {
-    title: "أساس نظام التصميم الخاص بك",
+    title: "نظام تصميم الهوية البصرية السورية",
     desc: "مكتبة عناصر واجهة مستخدم مبنية على الهوية البصرية السورية. قابلة للتخصيص والتوسيع.",
     viewComponents: "تصفّح العناصر",
   },
   ltr: {
-    title: "The Foundation for your Design System",
+    title: "Syrian Identity Design System",
     desc: "A component library built on the Syrian Visual Identity. Customizable, extensible, and open source.",
     viewComponents: "View Components",
   },
@@ -41,7 +40,8 @@ function ThemeToggle() {
   )
 }
 
-function DirToggle({ dir, setDir }: { dir: Dir; setDir: (d: Dir) => void }) {
+function DirToggle() {
+  const { dir, setDir } = useDir()
   return (
     <button
       onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
@@ -52,27 +52,157 @@ function DirToggle({ dir, setDir }: { dir: Dir; setDir: (d: Dir) => void }) {
   )
 }
 
-export default function Home() {
-  const [dir, setDir] = useState<Dir>("rtl")
+function AnimatedBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
-    document.documentElement.dir = dir
-    document.documentElement.lang = dir === "rtl" ? "ar" : "en"
-  }, [dir])
+    if (!mounted) return
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
+    let animId: number
+    const dpr = window.devicePixelRatio || 1
+
+    const resize = () => {
+      canvas.width = window.innerWidth * dpr
+      canvas.height = window.innerHeight * dpr
+      canvas.style.width = window.innerWidth + "px"
+      canvas.style.height = window.innerHeight + "px"
+      ctx.scale(dpr, dpr)
+    }
+    resize()
+    window.addEventListener("resize", resize)
+
+    const isDark = theme === "dark"
+    const primary = { r: 66, g: 129, b: 119 } // #428177
+    const accent = { r: 185, g: 167, b: 121 } // #b9a779
+
+    const spacing = 50
+    const cols = Math.ceil(window.innerWidth / spacing) + 2
+    const rows = Math.ceil(window.innerHeight / spacing) + 2
+
+    const loop = (time: number) => {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      ctx.clearRect(0, 0, w, h)
+
+      const t = time * 0.001
+
+      // Draw dot grid with ripple
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * spacing
+          const y = row * spacing
+
+          const cx = w / 2
+          const cy = h / 2
+          const dist = Math.hypot(x - cx, y - cy)
+          const maxDist = Math.hypot(cx, cy)
+
+          // Ripple wave from center
+          const wave = Math.sin(dist * 0.015 - t * 1.5) * 0.5 + 0.5
+          // Second slower wave
+          const wave2 = Math.sin(dist * 0.008 - t * 0.8 + 2) * 0.5 + 0.5
+
+          const combined = wave * 0.6 + wave2 * 0.4
+
+          // Fade out toward edges
+          const edgeFade = 1 - Math.pow(dist / maxDist, 1.5)
+
+          const alpha = combined * edgeFade * (isDark ? 0.4 : 0.3)
+          const radius = 1.5 + combined * 2
+
+          // Blend between primary and accent based on wave
+          const c = {
+            r: Math.round(primary.r + (accent.r - primary.r) * wave2),
+            g: Math.round(primary.g + (accent.g - primary.g) * wave2),
+            b: Math.round(primary.b + (accent.b - primary.b) * wave2),
+          }
+
+          ctx.beginPath()
+          ctx.arc(x, y, radius, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(${c.r},${c.g},${c.b},${alpha})`
+          ctx.fill()
+        }
+      }
+
+      // Draw connecting lines for dots near each other that are "active"
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * spacing
+          const y = row * spacing
+          const cx = w / 2
+          const cy = h / 2
+          const dist = Math.hypot(x - cx, y - cy)
+          const maxDist = Math.hypot(cx, cy)
+          const wave = Math.sin(dist * 0.015 - t * 1.5) * 0.5 + 0.5
+          const edgeFade = 1 - Math.pow(dist / maxDist, 1.5)
+
+          if (wave > 0.6 && edgeFade > 0.2) {
+            const lineAlpha = (wave - 0.6) * 2.5 * edgeFade * (isDark ? 0.2 : 0.12)
+            ctx.strokeStyle = `rgba(${primary.r},${primary.g},${primary.b},${lineAlpha})`
+            ctx.lineWidth = 0.5
+
+            // Connect to right neighbor
+            if (col < cols - 1) {
+              ctx.beginPath()
+              ctx.moveTo(x, y)
+              ctx.lineTo(x + spacing, y)
+              ctx.stroke()
+            }
+            // Connect to bottom neighbor
+            if (row < rows - 1) {
+              ctx.beginPath()
+              ctx.moveTo(x, y)
+              ctx.lineTo(x, y + spacing)
+              ctx.stroke()
+            }
+          }
+        }
+      }
+
+      animId = requestAnimationFrame(loop)
+    }
+    animId = requestAnimationFrame(loop)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener("resize", resize)
+    }
+  }, [mounted, theme])
+
+  if (!mounted) return null
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 z-0"
+      aria-hidden
+    />
+  )
+}
+
+export default function Home() {
+  const { dir } = useDir()
   const t = i18n[dir]
 
   return (
     <div className="relative flex min-h-screen flex-col overflow-hidden">
+      <AnimatedBackground />
       <header className="sticky top-0 z-50 w-full border-fade-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3">
-            <Image src="/emblem.svg" alt="sycn" width={36} height={36} />
-            <span className="text-xl font-bold">sycn</span>
+          <Link href="/" className="text-xl font-bold">
+            sycn
           </Link>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <DirToggle dir={dir} setDir={setDir} />
+            <DirToggle />
           </div>
         </div>
       </header>
@@ -106,9 +236,23 @@ export default function Home() {
         </section>
       </main>
 
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 flex justify-center translate-y-1/4" style={{ maskImage: "linear-gradient(to top, black 10%, transparent 70%)", WebkitMaskImage: "linear-gradient(to top, black 10%, transparent 70%)" }}>
-        <Image src="/assets/syria-map.svg" alt="" width={900} height={700} className="w-full max-w-4xl opacity-[0.07] dark:opacity-[0.12]" />
-      </div>
+      <footer className="relative z-10 py-6 text-center text-sm text-muted-foreground" style={{ backgroundImage: "linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent)", backgroundSize: "100% 1px", backgroundRepeat: "no-repeat", backgroundPosition: "top" }}>
+        {dir === "rtl" ? (
+          <>
+            © {new Date().getFullYear()} نظام تصميم الهوية البصرية السورية - تم تطويرها بواسطة{" "}
+            <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+              مكدوس
+            </a>
+          </>
+        ) : (
+          <>
+            © {new Date().getFullYear()} sycn. Developed by{" "}
+            <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+              @macdoos
+            </a>
+          </>
+        )}
+      </footer>
     </div>
   )
 }

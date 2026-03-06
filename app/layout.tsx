@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { ThemeProvider } from "next-themes"
+import { DirProvider } from "@/lib/dir-context"
 import "../src/globals.css"
 
 export const metadata: Metadata = {
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-          {children}
+          <DirProvider>
+            {children}
+          </DirProvider>
         </ThemeProvider>
       </body>
     </html>

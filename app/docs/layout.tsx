@@ -4,7 +4,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { useState, useEffect, createContext, useContext } from "react"
+import { useState, useEffect } from "react"
+import { useDir } from "@/lib/dir-context"
 
 const i18n = {
   rtl: {
@@ -32,8 +33,6 @@ const i18n = {
 }
 
 type Dir = "rtl" | "ltr"
-const DirContext = createContext<{ dir: Dir; setDir: (d: Dir) => void }>({ dir: "rtl", setDir: () => {} })
-export const useDir = () => useContext(DirContext)
 
 const identityItems = [
   { en: "palette", ar: "palette" },
@@ -93,7 +92,7 @@ function DirToggle({ dir, setDir }: { dir: Dir; setDir: (d: Dir) => void }) {
       className="flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-accent/50"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-      {dir === "rtl" ? "عربي" : "EN"}
+      {dir === "rtl" ? "EN" : "عربي"}
     </button>
   )
 }
@@ -123,17 +122,10 @@ function ThemeToggle({ dir }: { dir: Dir }) {
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const [dir, setDir] = useState<Dir>("rtl")
-
-  useEffect(() => {
-    document.documentElement.dir = dir
-    document.documentElement.lang = dir === "rtl" ? "ar" : "en"
-  }, [dir])
-
+  const { dir, setDir } = useDir()
   const t = i18n[dir]
 
   return (
-    <DirContext.Provider value={{ dir, setDir }}>
       <div className="flex min-h-screen">
         <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-fade-e">
           <div className="p-4">
@@ -202,10 +194,26 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           </div>
         </aside>
 
-        <main className="flex-1 ms-[250px]">
-          <div className="max-w-3xl mx-auto px-8 py-12">{children}</div>
+        <main className="flex-1 ms-[250px] flex flex-col min-h-screen">
+          <div className="max-w-3xl mx-auto px-8 py-12 flex-1">{children}</div>
+          <footer className="py-6 text-center text-sm text-muted-foreground" style={{ backgroundImage: "linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent)", backgroundSize: "100% 1px", backgroundRepeat: "no-repeat", backgroundPosition: "top" }}>
+            {dir === "rtl" ? (
+              <>
+                © {new Date().getFullYear()} نظام تصميم الهوية البصرية السورية - تم تطويرها بواسطة{" "}
+                <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+                  مكدوس
+                </a>
+              </>
+            ) : (
+              <>
+                © {new Date().getFullYear()} sycn. Developed by{" "}
+                <a href="https://x.com/macdoos" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground transition-colors">
+                  @macdoos
+                </a>
+              </>
+            )}
+          </footer>
         </main>
       </div>
-    </DirContext.Provider>
   )
 }

@@ -172,6 +172,54 @@ const descriptions: Record<string, Record<string, string>> = {
   calendar: { ar: "تقويم لاختيار التاريخ.", en: "A date picker calendar." },
 }
 
+const titles: Record<string, Record<string, string>> = {
+  accordion: { ar: "أكورديون", en: "Accordion" },
+  alert: { ar: "تنبيه", en: "Alert" },
+  "alert-dialog": { ar: "نافذة تنبيه", en: "Alert Dialog" },
+  "aspect-ratio": { ar: "نسبة العرض", en: "Aspect Ratio" },
+  avatar: { ar: "صورة رمزية", en: "Avatar" },
+  badge: { ar: "شارة", en: "Badge" },
+  breadcrumb: { ar: "مسار التنقل", en: "Breadcrumb" },
+  button: { ar: "زر", en: "Button" },
+  calendar: { ar: "تقويم", en: "Calendar" },
+  card: { ar: "بطاقة", en: "Card" },
+  checkbox: { ar: "مربع اختيار", en: "Checkbox" },
+  collapsible: { ar: "قابل للطي", en: "Collapsible" },
+  command: { ar: "لوحة أوامر", en: "Command" },
+  "context-menu": { ar: "قائمة سياقية", en: "Context Menu" },
+  dialog: { ar: "نافذة حوار", en: "Dialog" },
+  "dropdown-menu": { ar: "قائمة منسدلة", en: "Dropdown Menu" },
+  "hover-card": { ar: "بطاقة تمرير", en: "Hover Card" },
+  input: { ar: "حقل إدخال", en: "Input" },
+  label: { ar: "تسمية", en: "Label" },
+  menubar: { ar: "شريط قوائم", en: "Menubar" },
+  "navigation-menu": { ar: "قائمة تنقل", en: "Navigation Menu" },
+  pagination: { ar: "ترقيم صفحات", en: "Pagination" },
+  popover: { ar: "نافذة منبثقة", en: "Popover" },
+  progress: { ar: "شريط تقدم", en: "Progress" },
+  "radio-group": { ar: "مجموعة اختيار", en: "Radio Group" },
+  "scroll-area": { ar: "منطقة تمرير", en: "Scroll Area" },
+  select: { ar: "قائمة اختيار", en: "Select" },
+  separator: { ar: "فاصل", en: "Separator" },
+  sheet: { ar: "لوحة جانبية", en: "Sheet" },
+  sidebar: { ar: "شريط جانبي", en: "Sidebar" },
+  skeleton: { ar: "هيكل تحميل", en: "Skeleton" },
+  slider: { ar: "شريط تمرير", en: "Slider" },
+  switch: { ar: "مفتاح تبديل", en: "Switch" },
+  table: { ar: "جدول", en: "Table" },
+  tabs: { ar: "تبويبات", en: "Tabs" },
+  textarea: { ar: "حقل نصي", en: "Textarea" },
+  toast: { ar: "إشعار", en: "Toast" },
+  toggle: { ar: "زر تبديل", en: "Toggle" },
+  "toggle-group": { ar: "مجموعة تبديل", en: "Toggle Group" },
+  tooltip: { ar: "تلميح", en: "Tooltip" },
+  palette: { ar: "لوحة الألوان", en: "Color Palette" },
+  typography: { ar: "الخطوط", en: "Typography" },
+  flag: { ar: "العلم", en: "Flag" },
+  map: { ar: "الخريطة", en: "Map" },
+  resources: { ar: "الموارد", en: "Resources" },
+}
+
 export function useT() {
   const [dir, setDir] = useState("rtl")
 
@@ -187,6 +235,7 @@ export function useT() {
 
   const t = (key: string) => translations[key]?.[lang] || key
   const desc = (component: string) => descriptions[component]?.[lang] || ""
+  const title = (component: string) => titles[component]?.[lang] || component
 
-  return { t, desc, lang, dir }
+  return { t, desc, title, lang, dir }
 }

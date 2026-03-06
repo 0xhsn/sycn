@@ -1,0 +1,31 @@
+"use client"
+import { useT } from "@/lib/i18n"
+import { DocHeader } from "@/components/docs/doc-header"
+import { ComponentPreview } from "@/components/docs/component-preview"
+import { InstallCommand } from "@/components/docs/install-command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+
+export default function PopoverPage() {
+  const { t } = useT()
+  return (
+    <div className="space-y-6">
+      <DocHeader title="Popover" component="popover" />
+      <InstallCommand command="npx shadcn@latest add popover" />
+      <h2 className="text-2xl font-semibold">{t("usage")}</h2>
+      <ComponentPreview>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline">{t("open")}</Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <div className="space-y-2">
+              <h4 className="font-medium leading-none">Popover Title</h4>
+              <p className="text-sm text-muted-foreground">This is the popover content area.</p>
+            </div>
+          </PopoverContent>
+        </Popover>
+      </ComponentPreview>
+    </div>
+  )
+}

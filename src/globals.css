@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
 @font-face {
   font-family: "Qomra";
   src: url("/fonts/itfQomraArabic-Light.woff2") format("woff2");

@@ -57,10 +57,10 @@ function DirToggle({ dir, setDir }: { dir: Dir; setDir: (d: Dir) => void }) {
   return (
     <button
       onClick={() => setDir(dir === "rtl" ? "ltr" : "rtl")}
-      className="flex items-center gap-1.5 rounded-md border border-sidebar-border px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-sidebar-accent/50"
+      className="flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-accent/50"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-      {dir === "rtl" ? "RTL" : "LTR"}
+      {dir === "rtl" ? "عربي" : "EN"}
     </button>
   )
 }
@@ -76,7 +76,7 @@ function ThemeToggle({ dir }: { dir: Dir }) {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="flex items-center gap-1.5 rounded-md border border-sidebar-border px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-sidebar-accent/50"
+      className="flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-accent/50"
     >
       {isDark ? (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></svg>
@@ -102,11 +102,11 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
   return (
     <DirContext.Provider value={{ dir, setDir }}>
       <div className="flex min-h-screen">
-        <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none bg-sidebar text-sidebar-foreground border-e border-sidebar-border">
+        <aside className="fixed inset-inline-start-0 top-0 h-screen w-[250px] overflow-y-auto scrollbar-none border-e">
           <div className="p-4">
-            <Link href="/docs/components/button" className="flex items-center gap-2 mb-4">
-              <Image src="/emblem.svg" alt="sycn" width={32} height={32} />
-              <span className="text-lg font-bold">sycn</span>
+            <Link href="/" className="flex items-center gap-2.5 mb-4">
+              <Image src="/emblem.svg" alt="sycn" width={40} height={40} />
+              <span className="text-xl font-bold">sycn</span>
             </Link>
 
             <div className="flex gap-2 mb-6">
@@ -115,10 +115,10 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div className="mb-6">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-sidebar-foreground/60 mb-2">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 {t.identity}
               </h2>
-              <ul className="space-y-1">
+              <ul className="space-y-0.5">
                 {identityItems.map((item) => {
                   const href = `/docs/identity/${item.en}`
                   const active = pathname === href
@@ -128,8 +128,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                         href={href}
                         className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
                           active
-                            ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                            : "hover:bg-sidebar-accent/50"
+                            ? "bg-accent text-accent-foreground font-medium"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                         }`}
                       >
                         {t[item.en as keyof typeof t]}
@@ -141,10 +141,10 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             </div>
 
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-wider text-sidebar-foreground/60 mb-2">
+              <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 {t.components}
               </h2>
-              <ul className="space-y-1">
+              <ul className="space-y-0.5">
                 {components.map((name) => {
                   const slug = name.toLowerCase().replace(/ /g, "-")
                   const href = `/docs/components/${slug}`
@@ -155,8 +155,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
                         href={href}
                         className={`block rounded-md px-2 py-1.5 text-sm transition-colors ${
                           active
-                            ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                            : "hover:bg-sidebar-accent/50"
+                            ? "bg-accent text-accent-foreground font-medium"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                         }`}
                       >
                         {name}
